@@ -75,4 +75,40 @@
 
 - Aula 11: Adicionando Nodes ao Cluster
     - Criando Nodes dentro do Cluster no EKS
-    
+    - Necessário criar role de permissão
+    ```kubectl get nodes --watch```
+
+- Aula 12: Criando um cluster em nuvem utilizando GCP
+    - Acessando a plataforma do GCP pela primeira vez é necessário instalar o Google Cloud CLI <https://cloud.google.com/sdk/docs/install?hl=pt-br>
+    - Instalação de algumas features necessárias
+    ```Install-Module GoogleCloud```
+    ```Set-ExecutionPolicy RemoteSigned```
+    ```gcloud components install gke-gcloud-auth-plugin```
+    ```gcloud auth plugin```
+    ```gcloud auth list```
+    - Ir no projeto, depois no cluster e clicar em conectar ao cluster o mesmo dará a linha de comando necessária para conexão com o cluster.
+    ```gcloud container clusters get-credentials MEU-CLUSTER --region REGION --project ID-PROJECT```
+
+## Primeiros passos com Kubernetes
+
+- Aula 13: Implementando um aplicativo
+    - O que é um POD
+    Um POD do Kubernetes é um conjunto de um ou mais conteineres, sendo a menor unidade de uma aplicação Kubernetes. Os PODs são compostos por um conteiner nos casos de uso mais comuns ou por vários conteineres fortemente acoplados em cenários mais avançados. Os conteineres são agrupados nesses PODs para que os recursos sejam compartilhados de modo mais inteligente.
+    - O que é YAML (YML)?
+    O YAML é uma linguagem de serialização de dados muito usada na escrita de arquivos de configuração.
+    O YAML usa um recuo no estilo Python para indicar o aninhamento. É necessário utilizar espaços em branco porque os caracteres de tabulação não são permitidos. Não há símbolos de formato comuns, como chaves, colchetes, tags de fechamento ou aspas. Os arquivos YAML têm a extensão .yml ou .yaml.
+    - Criando o primeiro POD, criação do arquivo pod.yaml
+    ```kubectl apply -f .\Code\pod.yaml```
+    ```kubectl get pod```
+
+Aula 14: Outro exemplo de criação de um POD
+    - Mostrando informações adicionais de um POD
+    ```kubectl get pod -o wide```
+    - Testando APP pelo minikube
+    ```minikube ssh```
+    ```curl IP-DO-POD```
+    - Apagando POD
+    ```kubectl delete pod myapp-html```
+
+Aula 15: Criando um arquivo YAML de Deployment
+    - 
