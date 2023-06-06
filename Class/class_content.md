@@ -111,4 +111,52 @@ Aula 14: Outro exemplo de criação de um POD
     ```kubectl delete pod myapp-html```
 
 Aula 15: Criando um arquivo YAML de Deployment
+    - Criando o primeiro arquivode deployment.
+    - Alterando a quantidade de replicas.
+    - Deletando um POD ele recria automaticamente devido a configuração do Deployment
+
+Aula 16: Mais informações sobre um Deployment
+    - Aumentando o numero de POD (replicas) via CLI sem precisar alterar o arquivo de Deployment
+    ```kubectl scale deployment app-html-deployment --replicas=10```
+
+Aula 17: Expondo um Deployment
+    - Comando para exposição do Deployment via CLI
+    ```kubectl expose deployment app-html-deployment --type=LoadBalancer --name=app-html --port=80```
+    - Verificando exposição
+    ```kubectl get service```
+    - Expondo service do minikube (O terminal precisa estar aberto)
+    ```minikube service --url app-html```
+
+## Seção Docker + Kubernetes    
+
+Aula 18: Criando uma imagem personalizada
+    - Criando o diretório Dockerfile, com arquivo dockerfile e um arquivo html
+    - Criando uma imagem do Docker
+    ```docker build . -t USUARIO/app-html:1.0```
+    - Enviando a imagem para o DockerHub
+    ```docker login```
+    ```docker push USUARIO/app-html:1.0```
+
+Aula 19: Criando um Deployment de um aplicativo
+    - Criando um Deployment usando a imagem do DockerHub criada anteriormente
+    ```kubectl apply -f .\App1.0\Kubernetes\app-deployment.yaml```
+    ```kubectl expose deploy html-deployment --type=LoadBalancer --name=app-html```
+    ```minikube service --url app-html```
+
+Aula 20: Atualizando um aplicativo
+    - Criando outro diretório App1.1 alterando o arquivo index.html e fazendo um build da nova imagem
+    ```docker build . -t USUARIO/app-html:1.1```
+    ```docker push USUARIO/app-html:1.1```
+    - Aplicando novo Deployment da versão 1.1 do app
+    ```kubectl apply -f .\App1.1\Kubernetes\app-deployment.yaml```
+    ```minikube service --url app-html```
+
+Aula 21: Criando um Load Balancer por YAML
+    - Criando o arquivo YMAL para a exposição do serviço
+    ```kubectl apply -f .\App1.1\Kubernetes\app-html-lb.yaml```
+    ```minikube service --url app-html-lb```
+
+## Cluster Kubernetes em produção
+
+Aula 22: Criando um NodePort
     - 
