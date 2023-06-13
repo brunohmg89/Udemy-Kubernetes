@@ -159,4 +159,30 @@ Aula 21: Criando um Load Balancer por YAML
 ## Cluster Kubernetes em produção
 
 Aula 22: Criando um NodePort
+    - Criando novo diretório App2.0 para criação de NodePort
+    - Criando um POD com uma imagem docker que subimos com PHP
+    - Acessando o serviço do App pelo Node
+    ```kubectl get node -o wide```
+    - Executando o yaml do nodePort
+    ```kubectl apply -f .\Kubernetes\nodePort.yaml```
+    ```kubectl get svc```
+    ```kubectl describe svc myapp-php-service```
+
+Aula 23: NodePort com o MiniKube
+    - Expondo o serviço do Minikube
+    ```minikube service --url myapp-php-service```
+
+Aula 24: Executando aplicações no POD
+    - Executando um container no POD
+    ```kubectl exec --stdin --tty myapp-php -- /bin/bash```
+    ou
+    ```kubectl exec -it myapp-php -- /bin/bash```
+    - Alterado o arquivo index.php executando o container
+
+Aula 25: Deployment e Service em um único arquivo YAML
+    - Criando o diretório App3.0, unindo o manifestos de POD e Service, separados por ```---```
+
+Aula 26: Encaminhamento de porta
     - 
+
+
