@@ -65,28 +65,40 @@
     - Configurando a AWS CLI e credenciais de acesso
     - Site com a AWS CLI <https://aws.amazon.com/pt/cli/>
     - Configurando Access Key na AWS para conexão com o AWS CLI
+    
         ```aws configure```
 
 - Aula 10: Criando um cluster em nuvem utilizando o AKS
     - Verificando o status de criação do Cluster via AWS CLI
+    
     ```aws eks --region sa-east-1 describe-cluster --name kubernetes-lab --query cluster.status```
+    
     - Atualizar o arquivo de configuração local para que funcione o kubectl no cluster da nuvem (atualizando o arquivo .config dentro do seu user/.kube)
+    
     ```aws eks --region sa-east-1 update-kubeconfig --name kubernetes-lab```
 
 - Aula 11: Adicionando Nodes ao Cluster
     - Criando Nodes dentro do Cluster no EKS
     - Necessário criar role de permissão
+    
     ```kubectl get nodes --watch```
 
 - Aula 12: Criando um cluster em nuvem utilizando GCP
     - Acessando a plataforma do GCP pela primeira vez é necessário instalar o Google Cloud CLI <https://cloud.google.com/sdk/docs/install?hl=pt-br>
     - Instalação de algumas features necessárias
+    
     ```Install-Module GoogleCloud```
+    
     ```Set-ExecutionPolicy RemoteSigned```
+    
     ```gcloud components install gke-gcloud-auth-plugin```
+    
     ```gcloud auth plugin```
+    
     ```gcloud auth list```
+    
     - Ir no projeto, depois no cluster e clicar em conectar ao cluster o mesmo dará a linha de comando necessária para conexão com o cluster.
+    
     ```gcloud container clusters get-credentials MEU-CLUSTER --region REGION --project ID-PROJECT```
 
 ## Primeiros passos com Kubernetes
@@ -98,16 +110,24 @@
     O YAML é uma linguagem de serialização de dados muito usada na escrita de arquivos de configuração.
     O YAML usa um recuo no estilo Python para indicar o aninhamento. É necessário utilizar espaços em branco porque os caracteres de tabulação não são permitidos. Não há símbolos de formato comuns, como chaves, colchetes, tags de fechamento ou aspas. Os arquivos YAML têm a extensão .yml ou .yaml.
     - Criando o primeiro POD, criação do arquivo pod.yaml
+    
     ```kubectl apply -f .\Code\pod.yaml```
+    
     ```kubectl get pod```
 
 Aula 14: Outro exemplo de criação de um POD
     - Mostrando informações adicionais de um POD
+    
     ```kubectl get pod -o wide```
+    
     - Testando APP pelo minikube
+    
     ```minikube ssh```
+    
     ```curl IP-DO-POD```
+    
     - Apagando POD
+    
     ```kubectl delete pod myapp-html```
 
 Aula 15: Criando um arquivo YAML de Deployment
@@ -116,15 +136,22 @@ Aula 15: Criando um arquivo YAML de Deployment
     - Deletando um POD ele recria automaticamente devido a configuração do Deployment
 
 Aula 16: Mais informações sobre um Deployment
-    - Aumentando o numero de POD (replicas) via CLI sem precisar alterar o arquivo de Deployment
+    - Aumentando o numero de POD (replicas) via CLI sem precisar alterar o arquivo de 
+    Deployment
+    
     ```kubectl scale deployment app-html-deployment --replicas=10```
 
 Aula 17: Expondo um Deployment
     - Comando para exposição do Deployment via CLI
+    
     ```kubectl expose deployment app-html-deployment --type=LoadBalancer --name=app-html --port=80```
+
     - Verificando exposição
+    
     ```kubectl get service```
+
     - Expondo service do minikube (O terminal precisa estar aberto)
+    
     ```minikube service --url app-html```
 
 ## Seção Docker + Kubernetes    
@@ -132,28 +159,42 @@ Aula 17: Expondo um Deployment
 Aula 18: Criando uma imagem personalizada
     - Criando o diretório Dockerfile, com arquivo dockerfile e um arquivo html
     - Criando uma imagem do Docker
+    
     ```docker build . -t USUARIO/app-html:1.0```
+
     - Enviando a imagem para o DockerHub
+    
     ```docker login```
+    
     ```docker push USUARIO/app-html:1.0```
 
 Aula 19: Criando um Deployment de um aplicativo
     - Criando um Deployment usando a imagem do DockerHub criada anteriormente
+    
     ```kubectl apply -f .\App1.0\Kubernetes\app-deployment.yaml```
+    
     ```kubectl expose deploy html-deployment --type=LoadBalancer --name=app-html```
+    
     ```minikube service --url app-html```
 
 Aula 20: Atualizando um aplicativo
     - Criando outro diretório App1.1 alterando o arquivo index.html e fazendo um build da nova imagem
+    
     ```docker build . -t USUARIO/app-html:1.1```
+    
     ```docker push USUARIO/app-html:1.1```
+
     - Aplicando novo Deployment da versão 1.1 do app
+    
     ```kubectl apply -f .\App1.1\Kubernetes\app-deployment.yaml```
+    
     ```minikube service --url app-html```
 
 Aula 21: Criando um Load Balancer por YAML
     - Criando o arquivo YMAL para a exposição do serviço
+    
     ```kubectl apply -f .\App1.1\Kubernetes\app-html-lb.yaml```
+    
     ```minikube service --url app-html-lb```
 
 ## Cluster Kubernetes em produção
@@ -162,38 +203,100 @@ Aula 22: Criando um NodePort
     - Criando novo diretório App2.0 para criação de NodePort
     - Criando um POD com uma imagem docker que subimos com PHP
     - Acessando o serviço do App pelo Node
+    
     ```kubectl get node -o wide```
+
     - Executando o yaml do nodePort
+    
     ```kubectl apply -f .\Kubernetes\nodePort.yaml```
+    
     ```kubectl get svc```
+    
     ```kubectl describe svc myapp-php-service```
 
 Aula 23: NodePort com o MiniKube
     - Expondo o serviço do Minikube
+    
     ```minikube service --url myapp-php-service```
 
 Aula 24: Executando aplicações no POD
     - Executando um container no POD
+    
     ```kubectl exec --stdin --tty myapp-php -- /bin/bash```
+    
     ou
+    
     ```kubectl exec -it myapp-php -- /bin/bash```
+
     - Alterado o arquivo index.php executando o container
 
 Aula 25: Deployment e Service em um único arquivo YAML
-    - Criando o diretório App3.0, unindo o manifestos de POD e Service, separados por ```---```
+    - Criando o diretório App3.0, unindo o manifestos de POD e Service, separados por 
+    
+    ```---```
 
 Aula 26: Encaminhamento de porta
     - Criando um diretório App4, adicionando um POD Mysql.
+    
     ```kubectl port-forward pod/mysql-pod 3306:3306```
 
 Aula 27: Criando conexão com um banco de dados
     - Criando um diretório App5 e feito clone do repositório de exemplo do instrutor.
     - Realizado o build da imagem e enviado para o dockerhub de um banco de dados mysql.
+    
     ```kubectl apply -f .\database\db-deployment.yml```
+    
     ```minikube service --url myapp-php-service```
+
     - Alterando o arquivo js.js do diretório frontend informando o ip e porta entregues pelo minikube
     - Gravando dados pelo frontend acessando o index <file:///C:/Cursos/UDEMY/Udemy-Kubernetes/Code/App5/frontend/index.html>
     - Validando dados salvos, acessando o POD de banco de dados
-    - 
+    
+    ```kubectl exec --stdin --tty mysql-7b967c9c4f-8dcj4 -- /bin/bash```
+
+Aula 28: Introdução ao PV e PVC
+    - Persistência de dados
+    O gerenciamento de armazenamento é uma questão bem diferente do gerenciamento de instâncias computacionais. O subsistema PersistenVolume provê uma API para usuários e administradores que mostra de forma detalhada de como o armazenamento é provido e como ele é contruído. Para isso, o Kubernetes possui duas novas APIs: **PersistentVolume** e **PersistentVolumeClaim**.
+    - PersistVolume (PV)
+    PVs são plugins de volume, porém eles têm um ciclo de vida independente de qualquer POD que utilize um PV. Essa API tem por objetivo mostrar os detalhes da implementação do armazenamento, seja ele NFS, iSCSI, ou um armazenamento específico de um provedor de cloud pública.
+    - PersistentVolumeClaim (PVC)
+    O PVC é uma requisição para armazenamento por um usuário. Claims podem solicitar ao PV tamanho e modos de acesso especificos. Uma reinvidicação de volume persistente (PVC) é a solicitação de armazenamento, que é atendida vinculando a PVC a um volume persistente (PV).
+    ![Kube](img/kube1.png)
+    ![Kube](img/kube2.png)
+
+Aula 29: Criando os arquivos de configuração do PV e PVC
+    - Criado um diretório no mesmo repo com um nome de App6, porém inseri o mesmo no .gitignore para não realizar o push.
+    - Criado arquivo YAML com a configuração do volume local que será usado pelo POD do mysql.
+    
+    ```kubectl describe po NOMEDOPOD```
+
+    ```
+    Volumes:
+    local:
+        Type:          HostPath (bare host directory volume)
+        Path:          /meubanco/
+    ```
+
+Aula 30: PV local (Mais detalhes)
+    - Criando um PV, foi criado o arquivo YAML chamado pv.yaml
+
+    ```kubectl apply -f .\pv.yaml```
+
+    - Criando o PVC, foi criado o arquivo YAML chamado pvc.yaml
+
+Aula 31: Atribuindo um PVC
+    
+    ```kubectl apply -f .\pvc.yaml```
+
+    ```kubectl get pvc```
+
+    ```kubectl get pv```
+
+    - Editando o arquivo YAML mysql-local para usar o PVC
+
+    ```kubectl apply -f .\mysql-local.yaml```
+
+Aula 32: Armazenamento persistente em nuvem
+    -
 
 

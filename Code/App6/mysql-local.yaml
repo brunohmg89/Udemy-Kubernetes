@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-pv
+spec:
+  selector:
+    matchLabels:
+      app: mysql-pv
+  template:
+    metadata:
+      labels:
+        app: mysql-pv
+    spec:
+      containers:
+      - name: mysql-pv
+        image: brunohmg89/meubanco:1.0
+        env:
+          # Não utilizar senha dessa forma na vida real
+        - name: MYSQL_ROOT_PASSWORD
+          value: Senha123
+        - name: MYSQL_DATABASE
+          value: meubanco
+        ports:
+        - containerPort: 3306
+          name: mysql
+
+        volumeMounts:
+        - name: local
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: local
+        persistentVolumeClaim:
+          claimName: mypvc-local
