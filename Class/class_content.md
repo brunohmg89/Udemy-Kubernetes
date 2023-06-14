@@ -183,6 +183,17 @@ Aula 25: Deployment e Service em um único arquivo YAML
     - Criando o diretório App3.0, unindo o manifestos de POD e Service, separados por ```---```
 
 Aula 26: Encaminhamento de porta
+    - Criando um diretório App4, adicionando um POD Mysql.
+    ```kubectl port-forward pod/mysql-pod 3306:3306```
+
+Aula 27: Criando conexão com um banco de dados
+    - Criando um diretório App5 e feito clone do repositório de exemplo do instrutor.
+    - Realizado o build da imagem e enviado para o dockerhub de um banco de dados mysql.
+    ```kubectl apply -f .\database\db-deployment.yml```
+    ```minikube service --url myapp-php-service```
+    - Alterando o arquivo js.js do diretório frontend informando o ip e porta entregues pelo minikube
+    - Gravando dados pelo frontend acessando o index <file:///C:/Cursos/UDEMY/Udemy-Kubernetes/Code/App5/frontend/index.html>
+    - Validando dados salvos, acessando o POD de banco de dados
     - 
 
 
