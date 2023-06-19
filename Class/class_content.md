@@ -297,6 +297,108 @@ Aula 31: Atribuindo um PVC
     ```kubectl apply -f .\mysql-local.yaml```
 
 Aula 32: Armazenamento persistente em nuvem
-    -
+    - Documentação sobre PV e PVC no GCP <https://cloud.google.com/kubernetes-engine/docs/concepts/persistent-volumes?hl=pt-br>
+    - O GCP cria automaticamente o PV, é necessário criar somente o PVC e vincular ao POD/DEPLOY.
+
+Aula 33: Utilizando um servidor NFS (Cloud Filestore)
+    - Criado um arquivo YAML de deploy httpd-nfs com comentários de como criar um PV no GCP utilizando o filestore.
+    - Mostrando a utilização do ReadWriteMany com a criação de um NFS para que os PODs independente do Cluster possam ler e gravar dados no PV.
+
+Aula 34: Histórico de Deployment
+    - Criando um diretório App7 com um arquivo YAML de deploy.
+    
+    ```kubectl apply -f .\Kubernetes\deploy.yaml```
+
+    - Mostrando histórico de Deployment
+
+    ```kubectl rollout history deploy httpd```
+
+    - Ativando o histórico de Deployment, aplicando o deploy com a flag *--record*
+
+    ```kubectl apply -f .\Kubernetes\deploy.yaml --record```
+
+    ```kubectl rollout history deploy httpd```
+
+    ```
+    deployment.apps/httpd
+    REVISION  CHANGE-CAUSE
+    1         kubectl.exe apply --filename=.\Kubernetes\deploy.yaml --record=true
+    ```
+
+    - Atualizando o arquivo de deploy
+    - Voltando um deploy anterior
+
+    ```kubectl rollout undo deploy httpd```
+
+    - Verificando Deplyment
+
+    ```kubectl describe deploy httpd```
+
+    - Verificando versões do Deplyment
+
+    ```kubectl rollout history deploy httpd```
+
+    ```
+    REVISION  CHANGE-CAUSE
+    1         kubectl.exe apply --filename=.\Kubernetes\deploy.yaml --record=true
+    3         kubectl.exe apply --filename=.\Kubernetes\deploy.yaml --record=true
+    4         kubectl.exe apply --filename=.\Kubernetes\deploy.yaml --record=true
+    ```
+
+    - O comando ```kubectl rollout undo deploy``` volta para a última versão do deploy sempre, para escolher uma versão você pode usar a flag *--to-revision=1* (1 igual número da versão que você deseja)
+
+    ```kubectl rollout undo deploy httpd --to-revision=1```
+
+Aula 35: Organizando o histórico de Deployment
+    - Criando um diretório App8 com um arquivo de Deployment nomeado corretamente para mostrar o histórico e poder assim escolher a melhor opção para um possível rollback.
+
+    ```kubectl rollout history deploy app-html```
+
+    ```
+    REVISION  CHANGE-CAUSE
+    1         kubectl.exe apply --filename=.\Kubernetes\app-html1-0.yaml --record=true
+    ```
+
+    - Criado um novo Deployment com uma nomenclatura que mostre a versão da sua app para ter um melhor controle das versões.
+
+    ```kubectl apply -f .\Kubernetes\app-html1-0.yaml --record```
+
+    ```kubectl rollout history deploy app-html```
+
+    ```
+    REVISION  CHANGE-CAUSE
+    1         kubectl.exe apply --filename=.\Kubernetes\app-html1-0.yaml --record=true
+    2         kubectl.exe apply --filename=.\Kubernetes\app-html1-1.yaml --record=true
+    ```
+
+Aula 36: Secrets
+    - Um Secret é um objeto que contém uma pequena quantidade de informação sensível, como senhas, tokens ou chaves. Este tipo de informação poderia, em outras circustâncias, ser colocada diretamente em uma configuração de POD ou em uma imagem de contêiner. O uso de Secrets evita que você tenha de incluir dados confidenciais no seu código.
+    - Secrets podem ser criados de forma independente dos PODs que os consomem. Isto reduz o risco de que o Secret e seus dados sejam expostos durante o processo de criação, visualização e edição ou atualização de PODs.
+    - Criado diretório App9 com arquivo YAML do tipo Secret.
+    
+    ```kubectl apply -f .\Kubernetes\secrets.yaml```
+
+    ```kubectl get secrets```
+
+    - Subindo deploy de um mysql utilizando as secrets.
+
+    ```kubectl apply -f .\Kubernetes\mysql.yaml```
+
+    ```kubectl describe po NOMEDOPOD```
+
+    ```
+    Environment:
+      MYSQL_ROOT_PASSWORD:  <set to the key 'ROOT_PASSWORD' in secret 'my-secret'>   Optional: false
+      MYSQL_DATABASE:       <set to the key 'MYSQL_DATABASE' in secret 'my-secret'>  Optional: false
+    ```
+    
+
+
+
+
+
+
+
+
 
 

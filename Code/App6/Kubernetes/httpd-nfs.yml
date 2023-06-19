@@ -1,0 +1,76 @@
+# YAML de exemplo para criar PV no GCP usando o FileStore
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: fileserver-httpd
+spec:
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    # nome que foi dado na criação do disco no GCP
+    path: /dados
+    # IP do disco que foi criado no GCP
+    server: 0.0.0.0
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fileserver-httpd
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ""
+  volumeName: fileserver-httpd
+  resources:
+    requests:
+      storage: 50Gi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fileserver-httpd
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ""
+  volumeName: fileserver-httpd
+  resources:
+    requests:
+      storage: 50Gi
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: httpd
+  template:
+    metadata:
+      labels:
+        app: httpd
+    spec:
+      containers:
+      - name: httpd
+        image: httpd:latest
+        ports:
+        - containerPort: 80
+          name: httpd
+
+        volumeMounts:
+        - name: fileserver-httpd
+          mountPath: /usr/local/apache2/htdocs
+        volumes:
+          name: fileserver-httpd
+          persistentVolumeClaim:
+            claimName: fileserver-httpd
+
