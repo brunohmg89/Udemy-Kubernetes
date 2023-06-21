@@ -391,14 +391,17 @@ Aula 36: Secrets
       MYSQL_ROOT_PASSWORD:  <set to the key 'ROOT_PASSWORD' in secret 'my-secret'>   Optional: false
       MYSQL_DATABASE:       <set to the key 'MYSQL_DATABASE' in secret 'my-secret'>  Optional: false
     ```
-    
 
+## Projeto CI/CD com Gitlab
 
+Aula 37: O que é CI/CD?
+    - O que é um Deploy?
+    A implantação (Deploy) envolve mover o software de um ambiente controlado para outro. Um ambiente é um subconjunto de infraestrutura de TI usado para uma finalidade específica.
+    - Integração Contínua (CI)
+    A integração contínua é uma prática de desenvolvimento de software em que os desenvolvedores, com frequência, juntam suas alterações de código em um repositório central. Depois disso, criações e testes são executados. Os principais objetivos da integração contínua são encontrar e investigar erros rapidamente, melhorar a qualidade do software e reduzir o tempo necessário para validar e lançar novas atualizações de software.
+    - Entrega Contínua (CD)
+    A entrega contínua é uma prática de desenvolvimento de software em que alterações de código são criadas, testadas e preparadas automaticamente para liberação para produção. Ela expande com base na integração contínua, pela implantação de todas as alterações de código em um ambiente de teste e/ou ambiente de produção, após o estágio de criação. Quando a integração contínua for implementada adequadamente, os desenvolvedores sempre terão um artefato de criação pronto para ser implantado, e que passou por um processo de teste padronizado.
+    - Criação do diretório inicial para o projeto de CI & CD.
 
-
-
-
-
-
-
-
+Aula 38: Criando uma pipeline de criação de imagens
+    -
