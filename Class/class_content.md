@@ -66,7 +66,7 @@
     - Site com a AWS CLI <https://aws.amazon.com/pt/cli/>
     - Configurando Access Key na AWS para conexão com o AWS CLI
     
-        ```aws configure```
+    ```aws configure```
 
 - Aula 10: Criando um cluster em nuvem utilizando o AKS
     - Verificando o status de criação do Cluster via AWS CLI
@@ -115,61 +115,62 @@
     
     ```kubectl get pod```
 
-Aula 14: Outro exemplo de criação de um POD
-    - Mostrando informações adicionais de um POD
+Aula 14: Outro exemplo de criação de um POD.
+- Mostrando informações adicionais de um POD
+    
+    ```kubectl get pod```
     
     ```kubectl get pod -o wide```
-    
-    - Testando APP pelo minikube
+
+- Testando APP pelo minikube 
     
     ```minikube ssh```
     
     ```curl IP-DO-POD```
     
-    - Apagando POD
+- Apagando POD
     
     ```kubectl delete pod myapp-html```
 
 Aula 15: Criando um arquivo YAML de Deployment
-    - Criando o primeiro arquivode deployment.
+- Criando o primeiro arquivo de deployment.
     - Alterando a quantidade de replicas.
     - Deletando um POD ele recria automaticamente devido a configuração do Deployment
 
 Aula 16: Mais informações sobre um Deployment
-    - Aumentando o numero de POD (replicas) via CLI sem precisar alterar o arquivo de 
-    Deployment
+- Aumentando o numero de POD (replicas) via CLI sem precisar alterar o arquivo de Deployment
     
     ```kubectl scale deployment app-html-deployment --replicas=10```
 
 Aula 17: Expondo um Deployment
-    - Comando para exposição do Deployment via CLI
+- Comando para exposição do Deployment via CLI
     
     ```kubectl expose deployment app-html-deployment --type=LoadBalancer --name=app-html --port=80```
 
-    - Verificando exposição
+- Verificando exposição
     
     ```kubectl get service```
 
-    - Expondo service do minikube (O terminal precisa estar aberto)
+- Expondo service do minikube (O terminal precisa estar aberto)
     
     ```minikube service --url app-html```
 
 ## Seção Docker + Kubernetes    
 
 Aula 18: Criando uma imagem personalizada
-    - Criando o diretório Dockerfile, com arquivo dockerfile e um arquivo html
-    - Criando uma imagem do Docker
+- Criando o diretório Dockerfile, com arquivo dockerfile e um arquivo html
+- Criando uma imagem do Docker
     
     ```docker build . -t USUARIO/app-html:1.0```
 
-    - Enviando a imagem para o DockerHub
+- Enviando a imagem para o DockerHub
     
     ```docker login```
     
     ```docker push USUARIO/app-html:1.0```
 
 Aula 19: Criando um Deployment de um aplicativo
-    - Criando um Deployment usando a imagem do DockerHub criada anteriormente
+- Criando um Deployment usando a imagem do DockerHub criada anteriormente
     
     ```kubectl apply -f .\App1.0\Kubernetes\app-deployment.yaml```
     
@@ -178,20 +179,20 @@ Aula 19: Criando um Deployment de um aplicativo
     ```minikube service --url app-html```
 
 Aula 20: Atualizando um aplicativo
-    - Criando outro diretório App1.1 alterando o arquivo index.html e fazendo um build da nova imagem
+- Criando outro diretório App1.1 alterando o arquivo index.html e fazendo um build da nova imagem
     
     ```docker build . -t USUARIO/app-html:1.1```
     
     ```docker push USUARIO/app-html:1.1```
 
-    - Aplicando novo Deployment da versão 1.1 do app
+- Aplicando novo Deployment da versão 1.1 do app
     
     ```kubectl apply -f .\App1.1\Kubernetes\app-deployment.yaml```
     
     ```minikube service --url app-html```
 
 Aula 21: Criando um Load Balancer por YAML
-    - Criando o arquivo YMAL para a exposição do serviço
+- Criando o arquivo YMAL para a exposição do serviço
     
     ```kubectl apply -f .\App1.1\Kubernetes\app-html-lb.yaml```
     
@@ -200,13 +201,13 @@ Aula 21: Criando um Load Balancer por YAML
 ## Cluster Kubernetes em produção
 
 Aula 22: Criando um NodePort
-    - Criando novo diretório App2.0 para criação de NodePort
-    - Criando um POD com uma imagem docker que subimos com PHP
-    - Acessando o serviço do App pelo Node
+- Criando novo diretório App2.0 para criação de NodePort
+- Criando um POD com uma imagem docker que subimos com PHP
+- Acessando o serviço do App pelo Node
     
     ```kubectl get node -o wide```
 
-    - Executando o yaml do nodePort
+- Executando o yaml do nodePort
     
     ```kubectl apply -f .\Kubernetes\nodePort.yaml```
     
@@ -215,12 +216,12 @@ Aula 22: Criando um NodePort
     ```kubectl describe svc myapp-php-service```
 
 Aula 23: NodePort com o MiniKube
-    - Expondo o serviço do Minikube
+- Expondo o serviço do Minikube
     
     ```minikube service --url myapp-php-service```
 
 Aula 24: Executando aplicações no POD
-    - Executando um container no POD
+- Executando um container no POD
     
     ```kubectl exec --stdin --tty myapp-php -- /bin/bash```
     
@@ -228,45 +229,45 @@ Aula 24: Executando aplicações no POD
     
     ```kubectl exec -it myapp-php -- /bin/bash```
 
-    - Alterado o arquivo index.php executando o container
+- Alterado o arquivo index.php executando o container
 
 Aula 25: Deployment e Service em um único arquivo YAML
-    - Criando o diretório App3.0, unindo o manifestos de POD e Service, separados por 
+- Criando o diretório App3.0, unindo o manifestos de POD e Service, separados por 
     
     ```---```
 
 Aula 26: Encaminhamento de porta
-    - Criando um diretório App4, adicionando um POD Mysql.
+- Criando um diretório App4, adicionando um POD Mysql.
     
     ```kubectl port-forward pod/mysql-pod 3306:3306```
 
 Aula 27: Criando conexão com um banco de dados
-    - Criando um diretório App5 e feito clone do repositório de exemplo do instrutor.
-    - Realizado o build da imagem e enviado para o dockerhub de um banco de dados mysql.
+- Criando um diretório App5 e feito clone do repositório de exemplo do instrutor.
+- Realizado o build da imagem e enviado para o dockerhub de um banco de dados mysql.
     
     ```kubectl apply -f .\database\db-deployment.yml```
     
     ```minikube service --url myapp-php-service```
 
-    - Alterando o arquivo js.js do diretório frontend informando o ip e porta entregues pelo minikube
-    - Gravando dados pelo frontend acessando o index <file:///C:/Cursos/UDEMY/Udemy-Kubernetes/Code/App5/frontend/index.html>
-    - Validando dados salvos, acessando o POD de banco de dados
+- Alterando o arquivo js.js do diretório frontend informando o ip e porta entregues pelo minikube
+- Gravando dados pelo frontend acessando o index <file:///C:/Cursos/UDEMY/Udemy-Kubernetes/Code/App5/frontend/index.html>
+- Validando dados salvos, acessando o POD de banco de dados
     
     ```kubectl exec --stdin --tty mysql-7b967c9c4f-8dcj4 -- /bin/bash```
 
 Aula 28: Introdução ao PV e PVC
-    - Persistência de dados
+- Persistência de dados
     O gerenciamento de armazenamento é uma questão bem diferente do gerenciamento de instâncias computacionais. O subsistema PersistenVolume provê uma API para usuários e administradores que mostra de forma detalhada de como o armazenamento é provido e como ele é contruído. Para isso, o Kubernetes possui duas novas APIs: **PersistentVolume** e **PersistentVolumeClaim**.
-    - PersistVolume (PV)
+- PersistVolume (PV)
     PVs são plugins de volume, porém eles têm um ciclo de vida independente de qualquer POD que utilize um PV. Essa API tem por objetivo mostrar os detalhes da implementação do armazenamento, seja ele NFS, iSCSI, ou um armazenamento específico de um provedor de cloud pública.
-    - PersistentVolumeClaim (PVC)
+- PersistentVolumeClaim (PVC)
     O PVC é uma requisição para armazenamento por um usuário. Claims podem solicitar ao PV tamanho e modos de acesso especificos. Uma reinvidicação de volume persistente (PVC) é a solicitação de armazenamento, que é atendida vinculando a PVC a um volume persistente (PV).
-    ![Kube](img/kube1.png)
-    ![Kube](img/kube2.png)
+![Kube](img/kube1.png)
+![Kube](img/kube2.png)
 
 Aula 29: Criando os arquivos de configuração do PV e PVC
-    - Criado um diretório no mesmo repo com um nome de App6, porém inseri o mesmo no .gitignore para não realizar o push.
-    - Criado arquivo YAML com a configuração do volume local que será usado pelo POD do mysql.
+- Criado um diretório no mesmo repo com um nome de App6, porém inseri o mesmo no .gitignore para não realizar o push.
+- Criado arquivo YAML com a configuração do volume local que será usado pelo POD do mysql.
     
     ```kubectl describe po NOMEDOPOD```
 
@@ -278,42 +279,42 @@ Aula 29: Criando os arquivos de configuração do PV e PVC
     ```
 
 Aula 30: PV local (Mais detalhes)
-    - Criando um PV, foi criado o arquivo YAML chamado pv.yaml
+- Criando um PV, foi criado o arquivo YAML chamado pv.yaml
 
     ```kubectl apply -f .\pv.yaml```
 
-    - Criando o PVC, foi criado o arquivo YAML chamado pvc.yaml
+- Criando o PVC, foi criado o arquivo YAML chamado pvc.yaml
 
 Aula 31: Atribuindo um PVC
-    
+- Comandos:    
     ```kubectl apply -f .\pvc.yaml```
 
     ```kubectl get pvc```
 
     ```kubectl get pv```
 
-    - Editando o arquivo YAML mysql-local para usar o PVC
+- Editando o arquivo YAML mysql-local para usar o PVC
 
     ```kubectl apply -f .\mysql-local.yaml```
 
 Aula 32: Armazenamento persistente em nuvem
-    - Documentação sobre PV e PVC no GCP <https://cloud.google.com/kubernetes-engine/docs/concepts/persistent-volumes?hl=pt-br>
-    - O GCP cria automaticamente o PV, é necessário criar somente o PVC e vincular ao POD/DEPLOY.
+- Documentação sobre PV e PVC no GCP <https://cloud.google.com/kubernetes-engine/docs/concepts/persistent-volumes?hl=pt-br>
+- O GCP cria automaticamente o PV, é necessário criar somente o PVC e vincular ao POD/DEPLOY.
 
 Aula 33: Utilizando um servidor NFS (Cloud Filestore)
-    - Criado um arquivo YAML de deploy httpd-nfs com comentários de como criar um PV no GCP utilizando o filestore.
-    - Mostrando a utilização do ReadWriteMany com a criação de um NFS para que os PODs independente do Cluster possam ler e gravar dados no PV.
+- Criado um arquivo YAML de deploy httpd-nfs com comentários de como criar um PV no GCP utilizando o filestore.
+- Mostrando a utilização do ReadWriteMany com a criação de um NFS para que os PODs independente do Cluster possam ler e gravar dados no PV.
 
 Aula 34: Histórico de Deployment
-    - Criando um diretório App7 com um arquivo YAML de deploy.
+- Criando um diretório App7 com um arquivo YAML de deploy.
     
     ```kubectl apply -f .\Kubernetes\deploy.yaml```
 
-    - Mostrando histórico de Deployment
+- Mostrando histórico de Deployment
 
     ```kubectl rollout history deploy httpd```
 
-    - Ativando o histórico de Deployment, aplicando o deploy com a flag *--record*
+- Ativando o histórico de Deployment, aplicando o deploy com a flag *--record*
 
     ```kubectl apply -f .\Kubernetes\deploy.yaml --record```
 
@@ -325,16 +326,16 @@ Aula 34: Histórico de Deployment
     1         kubectl.exe apply --filename=.\Kubernetes\deploy.yaml --record=true
     ```
 
-    - Atualizando o arquivo de deploy
-    - Voltando um deploy anterior
+- Atualizando o arquivo de deploy
+- Voltando um deploy anterior
 
     ```kubectl rollout undo deploy httpd```
 
-    - Verificando Deplyment
+- Verificando Deplyment
 
     ```kubectl describe deploy httpd```
 
-    - Verificando versões do Deplyment
+- Verificando versões do Deplyment
 
     ```kubectl rollout history deploy httpd```
 
@@ -345,12 +346,12 @@ Aula 34: Histórico de Deployment
     4         kubectl.exe apply --filename=.\Kubernetes\deploy.yaml --record=true
     ```
 
-    - O comando ```kubectl rollout undo deploy``` volta para a última versão do deploy sempre, para escolher uma versão você pode usar a flag *--to-revision=1* (1 igual número da versão que você deseja)
+- O comando ```kubectl rollout undo deploy``` volta para a última versão do deploy sempre, para escolher uma versão você pode usar a flag *--to-revision=1* (1 igual número da versão que você deseja)
 
-    ```kubectl rollout undo deploy httpd --to-revision=1```
+```kubectl rollout undo deploy httpd --to-revision=1```
 
 Aula 35: Organizando o histórico de Deployment
-    - Criando um diretório App8 com um arquivo de Deployment nomeado corretamente para mostrar o histórico e poder assim escolher a melhor opção para um possível rollback.
+- Criando um diretório App8 com um arquivo de Deployment nomeado corretamente para mostrar o histórico e poder assim escolher a melhor opção para um possível rollback.
 
     ```kubectl rollout history deploy app-html```
 
@@ -359,7 +360,7 @@ Aula 35: Organizando o histórico de Deployment
     1         kubectl.exe apply --filename=.\Kubernetes\app-html1-0.yaml --record=true
     ```
 
-    - Criado um novo Deployment com uma nomenclatura que mostre a versão da sua app para ter um melhor controle das versões.
+- Criado um novo Deployment com uma nomenclatura que mostre a versão da sua app para ter um melhor controle das versões.
 
     ```kubectl apply -f .\Kubernetes\app-html1-0.yaml --record```
 
@@ -372,15 +373,15 @@ Aula 35: Organizando o histórico de Deployment
     ```
 
 Aula 36: Secrets
-    - Um Secret é um objeto que contém uma pequena quantidade de informação sensível, como senhas, tokens ou chaves. Este tipo de informação poderia, em outras circustâncias, ser colocada diretamente em uma configuração de POD ou em uma imagem de contêiner. O uso de Secrets evita que você tenha de incluir dados confidenciais no seu código.
-    - Secrets podem ser criados de forma independente dos PODs que os consomem. Isto reduz o risco de que o Secret e seus dados sejam expostos durante o processo de criação, visualização e edição ou atualização de PODs.
-    - Criado diretório App9 com arquivo YAML do tipo Secret.
+- Um Secret é um objeto que contém uma pequena quantidade de informação sensível, como senhas, tokens ou chaves. Este tipo de informação poderia, em outras circustâncias, ser colocada diretamente em uma configuração de POD ou em uma imagem de contêiner. O uso de Secrets evita que você tenha de incluir dados confidenciais no seu código.
+- Secrets podem ser criados de forma independente dos PODs que os consomem. Isto reduz o risco de que o Secret e seus dados sejam expostos durante o processo de criação, visualização e edição ou atualização de PODs.
+- Criado diretório App9 com arquivo YAML do tipo Secret.
     
     ```kubectl apply -f .\Kubernetes\secrets.yaml```
 
     ```kubectl get secrets```
 
-    - Subindo deploy de um mysql utilizando as secrets.
+- Subindo deploy de um mysql utilizando as secrets.
 
     ```kubectl apply -f .\Kubernetes\mysql.yaml```
 
@@ -395,13 +396,13 @@ Aula 36: Secrets
 ## Projeto CI/CD com Gitlab
 
 Aula 37: O que é CI/CD?
-    - O que é um Deploy?
-    A implantação (Deploy) envolve mover o software de um ambiente controlado para outro. Um ambiente é um subconjunto de infraestrutura de TI usado para uma finalidade específica.
-    - Integração Contínua (CI)
-    A integração contínua é uma prática de desenvolvimento de software em que os desenvolvedores, com frequência, juntam suas alterações de código em um repositório central. Depois disso, criações e testes são executados. Os principais objetivos da integração contínua são encontrar e investigar erros rapidamente, melhorar a qualidade do software e reduzir o tempo necessário para validar e lançar novas atualizações de software.
-    - Entrega Contínua (CD)
-    A entrega contínua é uma prática de desenvolvimento de software em que alterações de código são criadas, testadas e preparadas automaticamente para liberação para produção. Ela expande com base na integração contínua, pela implantação de todas as alterações de código em um ambiente de teste e/ou ambiente de produção, após o estágio de criação. Quando a integração contínua for implementada adequadamente, os desenvolvedores sempre terão um artefato de criação pronto para ser implantado, e que passou por um processo de teste padronizado.
-    - Criação do diretório inicial para o projeto de CI & CD.
+- O que é um Deploy?
+    - A implantação (Deploy) envolve mover o software de um ambiente controlado para outro. Um ambiente é um subconjunto de infraestrutura de TI usado para uma finalidade específica.
+- Integração Contínua (CI)
+    - A integração contínua é uma prática de desenvolvimento de software em que os desenvolvedores, com frequência, juntam suas alterações de código em um repositório central. Depois disso, criações e testes são executados. Os principais objetivos da integração contínua são encontrar e investigar erros rapidamente, melhorar a qualidade do software e reduzir o tempo necessário para validar e lançar novas atualizações de software.
+- Entrega Contínua (CD)
+    - A entrega contínua é uma prática de desenvolvimento de software em que alterações de código são criadas, testadas e preparadas automaticamente para liberação para produção. Ela expande com base na integração contínua, pela implantação de todas as alterações de código em um ambiente de teste e/ou ambiente de produção, após o estágio de criação. Quando a integração contínua for implementada adequadamente, os desenvolvedores sempre terão um artefato de criação pronto para ser implantado, e que passou por um processo de teste padronizado.
+- Criação do diretório inicial para o projeto de CI & CD.
 
 Aula 38: Criando uma pipeline de criação de imagens
-    -
+- 
