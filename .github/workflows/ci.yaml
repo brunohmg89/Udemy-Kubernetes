@@ -30,8 +30,8 @@ jobs:
     - name: use minikube
       uses: medyagh/setup-minikube@master
 
-    - name: deploy minikube
+    - name: kubectl in minikube
       run:
-        kubectl apply -f ./Code/CI-CD/App/Kubernetes/app-httpd.yaml
+        kubectl get pods -A
 
         
