@@ -25,4 +25,4 @@ jobs:
         context: ./Code/CI-CD/App/
         tags: brunohmg89/httpd-teste:latest
         push: true
-        dockerfile: ./Code/CI-CD/App/Dockerfile
+        # dockerfile: ./Code/CI-CD/App/Dockerfile
