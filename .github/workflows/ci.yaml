@@ -23,6 +23,6 @@ jobs:
       uses: docker/build-push-action@v4.1.1
       with:
         context: ./Code/CI-CD/App/
-        tags: tag
+        tags: brunohmg89/httpd-teste:latest
         push: true
         dockerfile: ./Code/CI-CD/App/Dockerfile
