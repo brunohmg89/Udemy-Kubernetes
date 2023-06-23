@@ -40,11 +40,11 @@ jobs:
 
     - name: kubectl in minikube
       run:
-        kubectl get pods      
+        kubectl get pods -n ns-httpd    
 
     - name: Test service URLs
       run: | 
         minikube service list
         minikube service discover --url
         echo -n "------------------opening the service------------------"
-        curl $(minikube service discover --url)/app-httpd-service    
+        curl $(minikube service discover --url)/version    
