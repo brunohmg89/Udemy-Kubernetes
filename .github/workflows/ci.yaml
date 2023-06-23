@@ -18,6 +18,6 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        context: ./Code/CI-CD/App
+        file: ./Code/CI-CD/App/dockerfile
         # repository: ${{ secrets.DOCKER_USERNAME }}/UDEMY-KUBERNETES\Code\CI-CD\App
         # tags: ${{ github.sha }}, latest
