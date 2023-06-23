@@ -407,4 +407,14 @@ Aula 37: O que é CI/CD?
 - Criação do diretório inicial para o projeto de CI & CD.
 
 Aula 38: Criando uma pipeline de criação de imagens
+- A Aula foi explicada como criar a pipeline de ci-cd por GitLab, eu criei o diretório chamado CI-CD e usei o GitHub para a criação da pipe no diretório ```.github\workflows\ci.yaml```
+    - Necessário gerar um Token no DockerHub para realizar a conexão via github actions.
+    - na parte de build-push criei o context que é o local padrão onde está alocado o dockerfile para gerar a imagem e enviar para o dockerhub.
+    - Editei também o tag, criando a tag latest.
+    - OBSERVAÇÃO: Pesquisar para gerar novas tags e não substituir a latest.
+
+Aula 39: Criando uma MV do tipo Bastion para a gerencia do Cluster
+- Marcado vídeo como lido no qual ele explica como criar uma maquina bastion, meus testes estão locais.
+
+Aula 40: Criando um pipeline de Deplyment no cluster Kubernetes
 - 

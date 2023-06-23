@@ -26,3 +26,12 @@ jobs:
         tags: brunohmg89/httpd-teste:latest
         push: true
         # dockerfile: ./Code/CI-CD/App/Dockerfile
+
+    - name: use minikube
+      uses: medyagh/setup-minikube@master
+
+    - name: deploy minikube
+      run:
+        kubectl apply -f ./Code/CI-CD/App/Kubernetes/app-httpd.yaml
+
+        
