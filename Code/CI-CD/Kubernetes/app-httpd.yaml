@@ -1,8 +1,17 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ns-httpd
+  labels:
+    name: ns-httpd
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app-httpd
-  namespace: ns-httpd
+  Namespace: ns-httpd
 spec:
   replicas: 6
   selector:
@@ -31,11 +40,3 @@ spec:
     ports:
         - port: 80
           targetPort: 80
-
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: ns-httpd
-  labels:
-    name: ns-httpd
