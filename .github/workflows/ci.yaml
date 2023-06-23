@@ -34,4 +34,12 @@ jobs:
       run:
         kubectl get pods -A
 
+    - name: Deploy to minikube
+      run: |
+          kubectl apply -f Code/CI-CD/Kubernetes/app-httpd.yaml
+
+    - name: kubectl in minikube
+      run:
+        kubectl get pods      
+
         
