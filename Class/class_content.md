@@ -22,6 +22,8 @@
     - Explicando sobre o minikube, ferramenta utilizada para usar o kubernetes na máquina local, não recomendado para utilização em ambiente de produção.
     - Site instalação do minikube <https://minikube.sigs.k8s.io/docs/start/>
 
+    ```minikube start --driver=docker```
+
 - Aula 4: Instalando o Docker Desktop
 
 - Aula 5: Instalando o minikube utilizando o virtual box para S.Os mais antigos

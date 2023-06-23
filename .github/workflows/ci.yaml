@@ -1,0 +1,22 @@
+name: docker-build-dir-ci-cd
+
+on:
+  push:
+    branches: [main]
+      
+jobs:
+  build:
+    name: Build
+    runs-on: Ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Build and push image to Dockerhub
+      uses: docker/build-push-action@v1.1.0
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        repository: ${{ secrets.DOCKER_USERNAME }}/UDEMY-KUBERNETES
+        #tags: ${{ github.sha }}, latest
