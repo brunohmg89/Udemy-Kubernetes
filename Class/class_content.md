@@ -416,5 +416,10 @@ Aula 38: Criando uma pipeline de criação de imagens
 Aula 39: Criando uma MV do tipo Bastion para a gerencia do Cluster
 - Marcado vídeo como lido no qual ele explica como criar uma maquina bastion, meus testes estão locais.
 
-Aula 40: Criando um pipeline de Deplyment no cluster Kubernetes
-- 
+Aula 40: Criando um pipeline de Deployment no cluster Kubernetes
+- Após mostrar como criar uma instância no GCP como um bastion host e após configurar o que é necessário para essa máquina se conectar ao cluster no mesmo projeto, o Denilson mostrar como fazer os deploy a partir dessa instância.
+
+## Extras
+
+- Configurei nesse repo para utilizar o minikube dentro de uma action para testar os arquivos ```.yaml```
+
