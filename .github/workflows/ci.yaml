@@ -25,7 +25,6 @@ jobs:
         context: ./Code/CI-CD/App/
         tags: brunohmg89/httpd-teste:latest
         push: true
-        # dockerfile: ./Code/CI-CD/App/Dockerfile
 
     - name: use minikube
       uses: medyagh/setup-minikube@master
@@ -47,4 +46,4 @@ jobs:
         minikube service list
         minikube service app-httpd-service --url
         echo -n "------------------opening the service------------------"
-        curl $(minikube service discover --url)/version    
+        curl $(minikube service app-httpd-service --url)/version    
