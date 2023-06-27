@@ -48,6 +48,6 @@ jobs:
     - name: Test service URLs
       run: | 
         minikube service list
-        minikube service app-httpd-service --url
+        minikube service app-httpd --url
         echo -n "------------------opening the service------------------"
-        curl $(minikube service app-httpd-service --url)    
+        curl $(minikube service app-httpd --url)    
