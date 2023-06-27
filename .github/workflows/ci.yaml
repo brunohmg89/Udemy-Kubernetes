@@ -41,9 +41,9 @@ jobs:
       run:
         kubectl get pods -n ns-httpd
 
-    - name: kubectl wait pods
-      run:
-        kubectl wait pod  
+    #- name: kubectl wait pods
+    #  run:
+    #    kubectl wait pod  
 
     - name: Test service URLs
       run: | 
