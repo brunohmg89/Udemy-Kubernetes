@@ -43,7 +43,7 @@ jobs:
 
     - name: kubectl expose
       run:
-        kubectl expose deployment app-httpd --type=NodePort  --port=80
+        kubectl expose deployment app-httpd -n ns-httpd --type=NodePort  --port=80
 
     - name: Test service URLs
       run: | 

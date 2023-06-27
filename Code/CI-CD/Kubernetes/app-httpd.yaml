@@ -26,7 +26,7 @@ spec:
       - name: app-httpd
         image: brunohmg89/httpd-teste:latest
         ports:
-        - containerPort: 8080
+        - containerPort: 80
 
 # ---
 # apiVersion: v1
