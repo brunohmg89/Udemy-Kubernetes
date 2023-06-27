@@ -35,12 +35,10 @@ jobs:
 
     - name: Deploy to minikube
       run: |
-          echo -n "--------------Apply do Deploy------------------"
           kubectl apply -f Code/CI-CD/Kubernetes/app-httpd.yaml
 
     - name: kubectl in minikube
       run:
-        echo -n "--------------Verificando Pods------------------"
         kubectl get pods -n ns-httpd
 
     - name: kubectl expose
@@ -49,10 +47,8 @@ jobs:
 
     - name: Test service URLs
       run: | 
-        echo -n "--------------Verificando Pods------------------"
         kubectl get pods -n ns-httpd
-        echo -n "--------------Listando services do minikube------------------"
         minikube service list
         minikube service app-httpd -n ns-httpd --url
         echo -n "------------------opening the service------------------"
-        curl $(minikube service app-httpd --url)    
+        curl $(minikube service app-httpd -n ns-httpd --url)    
