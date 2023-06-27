@@ -48,7 +48,6 @@ jobs:
     - name: kubectl wait
       run:
         kubectl wait pods -n ns-httpd --for condition=Ready --timeout=30s
-        kubectl get pods -n ns-httpd
 
     - name: Test service URLs
       run: | 
