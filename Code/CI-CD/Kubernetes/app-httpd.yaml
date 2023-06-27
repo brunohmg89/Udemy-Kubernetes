@@ -13,7 +13,7 @@ metadata:
   name: app-httpd
   namespace: ns-httpd
 spec:
-  replicas: 2
+  #eplicas: 2
   selector:
     matchLabels:
       app: app-httpd
