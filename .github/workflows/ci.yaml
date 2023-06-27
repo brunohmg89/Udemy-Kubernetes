@@ -41,9 +41,9 @@ jobs:
       run:
         kubectl get pods -n ns-httpd
 
-    #- name: kubectl wait pods
-    #  run:
-    #    kubectl wait pod  
+    - name: kubectl expose
+      run:
+        kubectl expose deployment app-httpd --type=NodePort  --port=80
 
     - name: Test service URLs
       run: | 
