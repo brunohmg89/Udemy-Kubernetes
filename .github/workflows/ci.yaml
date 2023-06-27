@@ -45,6 +45,11 @@ jobs:
       run:
         kubectl expose deployment app-httpd -n ns-httpd --type=NodePort  --port=80
 
+    - name: kubectl wait
+      run:
+        kubectl wait pods -n ns-httpd -l --for condition=Ready --timeout=30s
+        kubectl get pods -n ns-httpd
+
     - name: Test service URLs
       run: | 
         kubectl get pods -n ns-httpd
