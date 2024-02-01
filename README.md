@@ -1,2 +1,9 @@
-# Udemy-Kubernetes
-Curso sobre Kubernetes da Udemy
+# Udemy - Kubernetes
+
+## Descrição
+
+Curso Udemy sobre Kubernetes
+
+# Status do curso
+
+Concluído
